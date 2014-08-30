@@ -87,7 +87,7 @@ GAMEPADPROCEDURE['firefox_gamepad'] =->
         else
             PADAXES[padnum][VERTICAL] = 0
 
-gamePadProcedure =->
+gamepadProcedure =->
     # ブラウザ大分類
     _ua = window.navigator.userAgent.toLowerCase()
     if (_ua.match(/.* firefox\/.*/))
