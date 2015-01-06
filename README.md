@@ -3,18 +3,18 @@ gamepadprocedure
 このライブラリを読み込むと、「gamepadProcedure()」という関数が使えるようになります。
 ループ処理内でこの関数を呼び続けることで、リアルタイムにゲームパッドの情報を取得することが出来ます。
 
-pads = gamepadProcedure()
+pads = gamepadProcedure()  
 
 上記のように呼ぶと、「pads」という配列に接続されているゲームパッドの数だけ配列が格納されています。
 「pads[0]」ならゲームパッド0という感じです。
 
-pad0 = pads[0]
+pad0 = pads[0]  
 
 上記の「pad0」には、ボタンと方向ボタン、XBOX360コントローラーの場合はアナログスティックの情報が配列で格納されています。
 
-buttons = pad0.padbuttons
-axes = pad0.padaxes
-astick = pad0.analogstick
+buttons = pad0.padbuttons  
+axes = pad0.padaxes  
+astick = pad0.analogstick  
 
 上記のように各情報が取り出せます。
 通常であれば、「buttons」は0〜7までの配列になっています。
