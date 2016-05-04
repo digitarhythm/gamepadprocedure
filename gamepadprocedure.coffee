@@ -1,4 +1,6 @@
 _GAMEPADPROCEDURE_ = []
+_start_rt = 0
+_start_lt = 0
 
 _GAMEPADPROCEDURE_['firefox_gamepad'] =(gamepadsinfo)->
     padresult = []
@@ -15,8 +17,7 @@ _GAMEPADPROCEDURE_['firefox_gamepad'] =(gamepadsinfo)->
 
         # ゲームパッドボタン情報取得
         # 各種ゲームパッドで共通の情報が取れるがボタンが8つなので、それ以降のボタン情報は破棄する
-        max = (if (buttons.length < 8) then buttons.length else 8)
-        #max = buttons.length
+        max = 13
 
         padbuttons = []
         analogstick = []
@@ -27,6 +28,11 @@ _GAMEPADPROCEDURE_['firefox_gamepad'] =(gamepadsinfo)->
             xbox360pad = false
 
         if (xbox360pad)
+            ###
+            for btnum in [0...max]
+                bt = buttons[btnum]
+                padbuttons[btnum] = bt.pressed
+            ###
             padbuttons[0] = buttons[11].pressed
             padbuttons[1] = buttons[12].pressed
             padbuttons[2] = buttons[13].pressed
@@ -38,17 +44,28 @@ _GAMEPADPROCEDURE_['firefox_gamepad'] =(gamepadsinfo)->
             padbuttons[6] = buttons[5].pressed
             padbuttons[7] = buttons[4].pressed
 
-            padbuttons[8] = gamepad.axes[2]
-            padbuttons[9] = gamepad.axes[5]
+            if (_start_rt == axes[2])
+                padbuttons[8] = 0
+            else
+                padbuttons[8] = ((axes[2] + 1) / 2)
+            if (_start_lt == axes[5])
+                padbuttons[9] = 0
+            else
+                padbuttons[9] = ((axes[5] + 1) / 2)
 
-            padbuttons[10]= buttons[13].pressed
+            padbuttons[10]= buttons[6].pressed
+            padbuttons[11]= buttons[7].pressed
 
-            analogstick[0] = [gamepad.axes[0], gamepad.axes[1]]
-            analogstick[1] = [gamepad.axes[3], gamepad.axes[4]]
+            padbuttons[12]= buttons[10].pressed
+
+            analogstick[0] = [axes[0], axes[1]]
+            analogstick[1] = [axes[3], axes[4]]
         else
-            #for btnum in [0...max]
-            #    bt = buttons[btnum]
-            #    padbuttons[btnum] = bt.pressed
+            ###
+            for btnum in [0...max]
+                bt = buttons[btnum]
+                padbuttons[btnum] = bt.pressed
+            ###
             padbuttons[0] = buttons[0].pressed
             padbuttons[1] = buttons[1].pressed
             padbuttons[2] = buttons[2].pressed
@@ -63,8 +80,13 @@ _GAMEPADPROCEDURE_['firefox_gamepad'] =(gamepadsinfo)->
             padbuttons[8] = parseFloat(if (buttons[4].pressed) then 1.0 else 0.0)
             padbuttons[9] = parseFloat(if (buttons[5].pressed) then 1.0 else 0.0)
 
-            analogstick[0] = [gamepad.axes[0], gamepad.axes[1]]
-            analogstick[1] = [gamepad.axes[2], gamepad.axes[3]]
+            padbuttons[10] = buttons[10].pressed
+            padbuttons[11] = buttons[11].pressed
+
+            padbuttons[12] = 0
+
+            analogstick[0] = [axes[0], axes[1]]
+            analogstick[1] = [axes[2], axes[3]]
 
         # 水平方向ボタンデータ取得
         padaxes = []
@@ -106,14 +128,10 @@ _GAMEPADPROCEDURE_['chrome_gamepad'] =(gamepadsinfo)->
 
         # ゲームパッドボタン情報取得
         # 各種ゲームパッドで共通の情報が取れるがボタンが8つなので、それ以降のボタン情報は破棄する
-        max = (if (buttons.length < 8) then buttons.length else 8)
+        max = 13
 
         padbuttons = []
         analogstick = []
-
-        #for btnum in [0...max]
-        #    bt = buttons[btnum]
-        #    padbuttons[btnum] = bt.pressed
 
         if (id.match(/.*45e.*?28e.*/))
             xbox360pad = true
@@ -122,41 +140,60 @@ _GAMEPADPROCEDURE_['chrome_gamepad'] =(gamepadsinfo)->
             xbox360pad = false
 
         if (xbox360pad)
-            padbuttons[0] = buttons[0].value
-            padbuttons[1] = buttons[1].value
-            padbuttons[2] = buttons[2].value
-            padbuttons[3] = buttons[3].value
+            ###
+            for btnum in [0...max]
+                bt = buttons[btnum]
+                padbuttons[btnum] = bt.pressed
+            ###
+            padbuttons[0] = buttons[0].pressed
+            padbuttons[1] = buttons[1].pressed
+            padbuttons[2] = buttons[2].pressed
+            padbuttons[3] = buttons[3].pressed
 
-            padbuttons[4] = buttons[4].value
-            padbuttons[5] = buttons[5].value
+            padbuttons[4] = buttons[4].pressed
+            padbuttons[5] = buttons[5].pressed
 
-            padbuttons[6] = buttons[8].value
-            padbuttons[7] = buttons[9].value
+            padbuttons[6] = buttons[8].pressed
+            padbuttons[7] = buttons[9].pressed
 
             padbuttons[8] = buttons[6].value
             padbuttons[9] = buttons[7].value
 
-            padbuttons[10] = buttons[17].value
+            padbuttons[10] = buttons[10].pressed
+            padbuttons[11] = buttons[11].pressed
 
-            analogstick[0] = [gamepad.axes[0], gamepad.axes[1]]
-            analogstick[1] = [gamepad.axes[2], gamepad.axes[3]]
+            padbuttons[12] = buttons[16].pressed
+
+            analogstick[0] = [axes[0], axes[1]]
+            analogstick[1] = [axes[2], axes[3]]
         else
-            padbuttons[0] = buttons[0].value
-            padbuttons[1] = buttons[1].value
-            padbuttons[2] = buttons[2].value
-            padbuttons[3] = buttons[3].value
+            ###
+            for btnum in [0...max]
+                bt = buttons[btnum]
+                padbuttons[btnum] = bt.pressed
+            ###
+            padbuttons[0] = buttons[0].pressed
+            padbuttons[1] = buttons[1].pressed
+            padbuttons[2] = buttons[2].pressed
+            padbuttons[3] = buttons[3].pressed
 
-            padbuttons[4] = buttons[6].value
-            padbuttons[5] = buttons[7].value
+            padbuttons[4] = buttons[6].pressed
+            padbuttons[5] = buttons[7].pressed
 
-            padbuttons[6] = buttons[8].value if (buttons[8]?)
-            padbuttons[7] = buttons[9].value if (buttons[9]?)
+            padbuttons[6] = buttons[8].pressed if (buttons[8]?)
+            padbuttons[7] = buttons[9].pressed if (buttons[9]?)
 
-            padbuttons[8] = buttons[4].value
-            padbuttons[9] = buttons[5].value
+            padbuttons[8] = if (buttons[4].pressed) then 1.0 else 0.0
+            padbuttons[9] = if (buttons[5].pressed) then 1.0 else 0.0
 
-            analogstick[0] = [gamepad.axes[0], gamepad.axes[1]]
-            analogstick[1] = [gamepad.axes[2], gamepad.axes[5]]
+            padbuttons[10] = buttons[10].pressed
+            padbuttons[11] = buttons[11].pressed
+
+            padbuttons[12] = 0
+            ##
+
+            analogstick[0] = [axes[0], axes[1]]
+            analogstick[1] = [axes[2], axes[5]]
 
         # 水平方向ボタンデータ取得
         padaxes = []
