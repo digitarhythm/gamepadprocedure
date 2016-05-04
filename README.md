@@ -7,16 +7,16 @@ gamepadprocedure
 
 pads = gamepadProcedure()
 
-上記のように呼ぶと、「pads」という配列に接続されているゲームパッドの数だけ配列が格納されています。
+上記のように呼ぶと、「pads」という配列に接続されているゲームパッドの数だけ配列が格納されています。~
 「pads[0]」ならゲームパッド0という感じです。
 
 pad0 = pads[0]
 
 上記の「pad0」には、ボタンと方向ボタン、XBOX360コントローラーの場合はアナログスティックの情報が配列で格納されています。
 
-buttons = pad0.padbuttons
-axes = pad0.padaxes
-astick = pad0.analogstick
+buttons = pad0.padbuttons~
+axes = pad0.padaxes~
+astick = pad0.analogstick~
 
 上記のように各情報が取り出せます。
 
